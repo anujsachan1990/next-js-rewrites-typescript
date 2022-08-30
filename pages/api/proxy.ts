@@ -21,7 +21,6 @@ export default async function handler(req: NextRequest) {
 
 	console.log('requestHeader', req.nextUrl.href, requestHeader);
 
-
 	// set request headers
 	requestHeader.map((item: any) => {
 		req.headers.set(
@@ -57,7 +56,11 @@ export default async function handler(req: NextRequest) {
 	const response = await fetch(`${process.env.REWRITE_HOST}${newUrl}`, {
 		method: req.method,
 	});
-	console.log('sasa', response.headers.get('cookie'));
+
+	for (const key of response.headers.keys() as any) {
+		console.log('keys', key);
+	}
+
 	// extract the response headers
 	response.headers.forEach((value, key) => {
 		responseHeader.push({ [key]: value });
@@ -68,7 +71,7 @@ export default async function handler(req: NextRequest) {
 	// set the response headers
 	const headers = [
 		['Set-Cookie', 'greeting=hello'],
-		['Set-Cookie', 'name=world']
+		['Set-Cookie', 'name=world'],
 	];
 	const myHeaders = new Headers(headers as any);
 	responseHeader.forEach((item: any) => {
@@ -85,8 +88,6 @@ export default async function handler(req: NextRequest) {
 	});
 
 	console.log('responseHeaderModified', responseModifiedHeader);
-
-
 
 	// return response if content type is not html,css,js
 	if (
