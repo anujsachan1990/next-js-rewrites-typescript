@@ -23,18 +23,33 @@ export default async function handler(req: NextRequest) {
 
 	// set request headers
 
-	requestHeader.map((item: any) => {
-		req.headers.set(
+	// requestHeader.map((item: any) => {
+	// 	req.headers.set(
+	// 		Object.keys(item)[0],
+	// 		item[Object.keys(item)[0]]
+	// 			.replaceAll(host, 'www.countryroad.com.au')
+	// 			.replaceAll('.vercel.app', '.countryroad.com.au')
+	// 	);
+	// });
+
+	let test1: any = [];
+	requestHeader.forEach((item: any) => {
+		test1.push([
 			Object.keys(item)[0],
 			item[Object.keys(item)[0]]
-		);
+				.replaceAll(host, 'www.countryroad.com.au')
+				.replaceAll('.vercel.app', '.countryroad.com.au'),
+		]);
 	});
+	console.log('test', test1);
+	const myHeaders1 = new Headers(test1);
 
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
 			requestModifiedHeader.push({ [key]: value });
 		}
 	});
+
 	const newUrl = `${req.nextUrl.pathname}${req.nextUrl.search}`
 		.replaceAll('(', '%28')
 		.replaceAll(')', '%29')
@@ -54,6 +69,7 @@ export default async function handler(req: NextRequest) {
 
 	const response = await fetch(`${process.env.REWRITE_HOST}${newUrl}`, {
 		method: req.method,
+		headers: myHeaders1,
 	});
 
 	// extract the response headers
@@ -72,7 +88,12 @@ export default async function handler(req: NextRequest) {
 
 	let test: any = [];
 	responseHeader.forEach((item: any) => {
-		test.push([Object.keys(item)[0], item[Object.keys(item)[0]]]);
+		test.push([
+			Object.keys(item)[0],
+			item[Object.keys(item)[0]]
+				.replaceAll('www.countryroad.com.au', host)
+				.replaceAll('.countryroad.com.au', '.vercel.app'),
+		]);
 	});
 	console.log('test', test);
 	const myHeaders = new Headers(test);
