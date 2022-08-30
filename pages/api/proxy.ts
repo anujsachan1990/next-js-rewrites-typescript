@@ -21,6 +21,7 @@ export default async function handler(req: NextRequest) {
 
 	console.log('requestHeader', req.nextUrl.href, requestHeader);
 
+
 	// set request headers
 	requestHeader.map((item: any) => {
 		req.headers.set(
@@ -57,10 +58,6 @@ export default async function handler(req: NextRequest) {
 		method: req.method,
 	});
 
-	for (const key of response.headers.keys() as any) {
-		console.log('keys', key);
-	}
-
 	// extract the response headers
 	response.headers.forEach((value, key) => {
 		responseHeader.push({ [key]: value });
@@ -69,11 +66,8 @@ export default async function handler(req: NextRequest) {
 	console.log('responseHeader', responseHeader);
 
 	// set the response headers
-	const headers = [
-		['Set-Cookie', 'greeting=hello'],
-		['Set-Cookie', 'name=world'],
-	];
-	const myHeaders = new Headers(headers as any);
+
+	const myHeaders = new Headers();
 	responseHeader.forEach((item: any) => {
 		myHeaders.set(
 			Object.keys(item)[0],
@@ -88,6 +82,8 @@ export default async function handler(req: NextRequest) {
 	});
 
 	console.log('responseHeaderModified', responseModifiedHeader);
+
+
 
 	// return response if content type is not html,css,js
 	if (
@@ -104,5 +100,13 @@ export default async function handler(req: NextRequest) {
 		req.nextUrl.origin
 	);
 
-	return new Response(modifiedtext, { headers: myHeaders });
+	const testHeader = [
+		['Set-Cookie', 'visid_incap_2179657=Oiz/GpjpR1Cl4RGtDi2VZZX0DWMAAAAAQUIPAAAAAADG+h7MqY9DRc8Q2YiVwU3T; expires=Tue, 29 Aug 2023 11:44:57 GMT; HttpOnly; path=/; Domain=.vercel.app'],
+		['Set-Cookie', 'incap_ses_437_2179657=u6RXd99Zg3bMPh7qDosQBpX0DWMAAAAATxGpVGP0ip8d6GQkKq40Sw==; path=/; Domain=.vercel.app']
+	];
+
+	return new Response(modifiedtext, { headers: {
+		...myHeaders,
+		...testHeader,
+	} });
 }
