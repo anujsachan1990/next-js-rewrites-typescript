@@ -27,8 +27,6 @@ export default async function handler(req: NextRequest) {
 		req.headers.set(
 			Object.keys(item)[0],
 			item[Object.keys(item)[0]]
-				.replaceAll(host, 'www.countryroad.com.au')
-				.replaceAll('.vercel.app', '.countryroad.com.au')
 		);
 	});
 
@@ -74,15 +72,11 @@ export default async function handler(req: NextRequest) {
 
 	let test: any = [];
 	responseHeader.forEach((item: any) => {
-		test.push([
-			Object.keys(item)[0],
-			item[Object.keys(item)[0]]
-				.replaceAll('www.countryroad.com.au', host)
-				.replaceAll('.countryroad.com.au', '.vercel.app'),
-		]);
+		test.push([Object.keys(item)[0], item[Object.keys(item)[0]]]);
 	});
 	console.log('test', test);
 	const myHeaders = new Headers(test);
+
 	// responseHeader.forEach((item: any) => {
 	// 	myHeaders.set(
 	// 		Object.keys(item)[0],
