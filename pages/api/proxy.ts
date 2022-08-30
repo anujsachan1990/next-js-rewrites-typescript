@@ -66,7 +66,11 @@ export default async function handler(req: NextRequest) {
 	console.log('responseHeader', responseHeader);
 
 	// set the response headers
-	const myHeaders = new Headers();
+	const headers = [
+		['Set-Cookie', 'greeting=hello'],
+		['Set-Cookie', 'name=world']
+	];
+	const myHeaders = new Headers(headers);
 	responseHeader.forEach((item: any) => {
 		myHeaders.set(
 			Object.keys(item)[0],
