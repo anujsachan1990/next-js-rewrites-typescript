@@ -66,19 +66,24 @@ export default async function handler(req: NextRequest) {
 	console.log('responseHeader', responseHeader);
 
 	// set the response headers
-	const myHeaders = new Headers();
-	responseHeader.forEach((item: any) => {
-		myHeaders.set(
-			Object.keys(item)[0],
-			item[Object.keys(item)[0]]
-				.replaceAll('www.countryroad.com.au', host)
-				.replaceAll('.countryroad.com.au', '.vercel.app')
-		);
-	});
 
-	myHeaders.forEach((value, key) => {
-		responseModifiedHeader.push({ [key]: value });
-	});
+	const headers = [
+		['Set-Cookie', 'greeting=hello'],
+		['Set-Cookie', 'name=world']
+	];
+	const myHeaders = new Headers(headers);
+	// responseHeader.forEach((item: any) => {
+	// 	myHeaders.set(
+	// 		Object.keys(item)[0],
+	// 		item[Object.keys(item)[0]]
+	// 			.replaceAll('www.countryroad.com.au', host)
+	// 			.replaceAll('.countryroad.com.au', '.vercel.app')
+	// 	);
+	// });
+
+	// myHeaders.forEach((value, key) => {
+	// 	responseModifiedHeader.push({ [key]: value });
+	// });
 
 	console.log('responseHeaderModified', responseModifiedHeader);
 
