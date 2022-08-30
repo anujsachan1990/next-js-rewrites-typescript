@@ -57,7 +57,7 @@ export default async function handler(req: NextRequest) {
 	const response = await fetch(`${process.env.REWRITE_HOST}${newUrl}`, {
 		method: req.method,
 	});
-	console.log('sasa', response.headers.get('Cookie'));
+	console.log('sasa', response.headers.get('cookie'));
 	// extract the response headers
 	response.headers.forEach((value, key) => {
 		responseHeader.push({ [key]: value });
