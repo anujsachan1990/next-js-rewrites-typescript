@@ -21,8 +21,8 @@ export default async function handler(req: NextRequest) {
 
 	console.log('requestHeader', req.nextUrl.href, requestHeader);
 
-
 	// set request headers
+
 	requestHeader.map((item: any) => {
 		req.headers.set(
 			Object.keys(item)[0],
@@ -67,12 +67,22 @@ export default async function handler(req: NextRequest) {
 
 	// set the response headers
 
-	const headers = [
-		['Set-Cookie', 'greeting=hello'],
-		['Set-Cookie', 'name=world']
-	];
-	const myHeaders = new Headers(headers as any);
+	// const headers = [
+	// 	['Set-Cookie', 'greeting=hello'],
+	// 	['Set-Cookie', 'name=world']
+	// ];
 
+	let test: any = [];
+	responseHeader.forEach((item: any) => {
+		test.push([
+			Object.keys(item)[0],
+			item[Object.keys(item)[0]]
+				.replaceAll('www.countryroad.com.au', host)
+				.replaceAll('.countryroad.com.au', '.vercel.app'),
+		]);
+	});
+	console.log('test', test);
+	const myHeaders = new Headers(test);
 	// responseHeader.forEach((item: any) => {
 	// 	myHeaders.set(
 	// 		Object.keys(item)[0],
@@ -82,13 +92,11 @@ export default async function handler(req: NextRequest) {
 	// 	);
 	// });
 
-	// myHeaders.forEach((value, key) => {
-	// 	responseModifiedHeader.push({ [key]: value });
-	// });
+	myHeaders.forEach((value, key) => {
+		responseModifiedHeader.push({ [key]: value });
+	});
 
 	console.log('responseHeaderModified', responseModifiedHeader);
-
-
 
 	// return response if content type is not html,css,js
 	if (
