@@ -5,10 +5,10 @@ export const config = {
 };
 
 export default async function handler(req: NextRequest) {
-	let responseHeader: any = [];
-	let requestHeader: any = [];
-	let requestModifiedHeader: any = [];
-	let responseModifiedHeader: any = [];
+	let responseHeader: any = [],
+		requestHeader: any = [],
+		requestModifiedHeader: any = [],
+		responseModifiedHeader: any = [];
 
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
@@ -54,7 +54,6 @@ export default async function handler(req: NextRequest) {
 	const response = await fetch(`${process.env.REWRITE_HOST}${newUrl}`, {
 		method: req.method,
 	});
-	//console.log("response header--->")
 
 	response.headers.forEach((value, key) => {
 		responseHeader.push({ [key]: value });
@@ -90,10 +89,9 @@ export default async function handler(req: NextRequest) {
 
 	const text = await response.text();
 	const modifiedtext = text.replaceAll(
-		process.env.REWRITE_HOST as any,
+		process.env.REWRITE_HOST as string,
 		req.nextUrl.origin
 	);
-	// const { headers } = response
-	// console.log("response headers", headers)
+
 	return new Response(modifiedtext, { headers: myHeaders });
 }
