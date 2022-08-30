@@ -105,8 +105,5 @@ export default async function handler(req: NextRequest) {
 		['Set-Cookie', 'incap_ses_437_2179657=u6RXd99Zg3bMPh7qDosQBpX0DWMAAAAATxGpVGP0ip8d6GQkKq40Sw==; path=/; Domain=.vercel.app']
 	];
 
-	return new Response(modifiedtext, { headers: {
-		...myHeaders,
-		...testHeader,
-	} });
+	return new Response(modifiedtext, { headers: new Headers(testHeader)});
 }
