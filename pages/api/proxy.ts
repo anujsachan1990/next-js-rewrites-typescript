@@ -5,10 +5,10 @@ export const config = {
 };
 
 export default async function handler(req: NextRequest) {
-	let responseHeader: [] = [];
-	let requestHeader: [] = [];
-	let requestModifiedHeader: [] = [];
-	let responseModifiedHeader: [] = [];
+	let responseHeader: any = [];
+	let requestHeader: any = [];
+	let requestModifiedHeader: any = [];
+	let responseModifiedHeader: any = [];
 
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
@@ -20,7 +20,7 @@ export default async function handler(req: NextRequest) {
 
 	const host = req.headers.get('host');
 
-	requestHeader.map((item) => {
+	requestHeader.map((item: any) => {
 		req.headers.set(
 			Object.keys(item)[0],
 			item[Object.keys(item)[0]]
@@ -51,8 +51,6 @@ export default async function handler(req: NextRequest) {
 		requestModifiedHeader
 	);
 
-
-
 	const response = await fetch(`${process.env.REWRITE_HOST}${newUrl}`, {
 		method: req.method,
 	});
@@ -66,7 +64,7 @@ export default async function handler(req: NextRequest) {
 
 	const myHeaders = new Headers();
 
-	responseHeader.forEach((item) => {
+	responseHeader.forEach((item: any) => {
 		myHeaders.set(
 			Object.keys(item)[0],
 			item[Object.keys(item)[0]]
@@ -92,7 +90,7 @@ export default async function handler(req: NextRequest) {
 
 	const text = await response.text();
 	const modifiedtext = text.replaceAll(
-		process.env.REWRITE_HOST,
+		process.env.REWRITE_HOST as any,
 		req.nextUrl.origin
 	);
 	// const { headers } = response
