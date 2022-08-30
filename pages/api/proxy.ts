@@ -24,8 +24,8 @@ export default async function handler(req: NextRequest) {
 		req.headers.set(
 			Object.keys(item)[0],
 			item[Object.keys(item)[0]]
-				.replaceAll(host, 'www.visitvictoria.com')
-				.replaceAll('.vercel.app', '.visitvictoria.com')
+				.replaceAll(host, 'www.countryroad.com.au')
+				.replaceAll('.vercel.app', '.countryroad.com.au')
 		);
 	});
 
@@ -68,8 +68,8 @@ export default async function handler(req: NextRequest) {
 		myHeaders.set(
 			Object.keys(item)[0],
 			item[Object.keys(item)[0]]
-				.replaceAll('www.visitvictoria.com', host)
-				.replaceAll('.visitvictoria.com', '.vercel.app')
+				.replaceAll('www.countryroad.com.au', host)
+				.replaceAll('.countryroad.com.au', '.vercel.app')
 		);
 	});
 
