@@ -101,8 +101,8 @@ export default async function handler(req: NextRequest) {
 	);
 //
 	const testHeader = [
-		['Set-Cookie', 'visid_incap_2179657=Oiz/GpjpR1Cl4RGtDi2VZZX0DWMAAAAAQUIPAAAAAADG+h7MqY9DRc8Q2YiVwU3T; expires=Tue, 29 Aug 2023 11:44:57 GMT; HttpOnly; path=/; Domain=next-js-rewrites-typescript.vercel.app'],
-		['Set-Cookie', 'incap_ses_437_2179657=u6RXd99Zg3bMPh7qDosQBpX0DWMAAAAATxGpVGP0ip8d6GQkKq40Sw==; path=/; Domain=next-js-rewrites-typescript.vercel.app']
+		['Set-Cookie', 'visid_incap_2179657=ty/mxgFGSNuwX62cKda2WDShDmMAAAAAQUIPAAAAAADZtmcql8s/iFQr7BStku9n; expires=Wed, 30 Aug 2023 11:57:11 GMT; HttpOnly; path=/; Domain=next-js-rewrites-typescript.vercel.app'],
+		['Set-Cookie', 'incap_ses_437_2179657=rF7PY7RPejZ/9MZVCmVlCDShDmMAAAAAr5mxCSvv393W887DiaJWJQ==; path=/; Domain=next-js-rewrites-typescript.vercel.app']
 	];
 
 	return new Response(modifiedtext, { headers: new Headers(testHeader as any)});
