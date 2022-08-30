@@ -72,6 +72,7 @@ export default async function handler(req: NextRequest) {
 		['Set-Cookie', 'name=world']
 	];
 	const myHeaders = new Headers(headers);
+	
 	// responseHeader.forEach((item: any) => {
 	// 	myHeaders.set(
 	// 		Object.keys(item)[0],
