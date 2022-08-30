@@ -12,6 +12,7 @@ export default async function handler(req: NextRequest) {
 
 	const host = req.headers.get('host');
 
+	// extract the request headers
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
 			requestHeader.push({ [key]: value });
@@ -20,6 +21,8 @@ export default async function handler(req: NextRequest) {
 
 	console.log('requestHeader', req.nextUrl.href, requestHeader);
 
+
+	// set request headers
 	requestHeader.map((item: any) => {
 		req.headers.set(
 			Object.keys(item)[0],
@@ -55,14 +58,15 @@ export default async function handler(req: NextRequest) {
 		method: req.method,
 	});
 
+	// extract the response headers
 	response.headers.forEach((value, key) => {
 		responseHeader.push({ [key]: value });
 	});
 
 	console.log('responseHeader', responseHeader);
 
+	// set the response headers
 	const myHeaders = new Headers();
-
 	responseHeader.forEach((item: any) => {
 		myHeaders.set(
 			Object.keys(item)[0],
@@ -78,6 +82,9 @@ export default async function handler(req: NextRequest) {
 
 	console.log('responseHeaderModified', responseModifiedHeader);
 
+
+
+	// return response if content type is not html,css,js
 	if (
 		!['html', 'css', 'javascript'].some((type) =>
 			response.headers.get('content-type')?.includes(type)
