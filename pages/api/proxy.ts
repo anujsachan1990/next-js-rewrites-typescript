@@ -10,15 +10,15 @@ export default async function handler(req: NextRequest) {
 		requestModifiedHeader: any = [],
 		responseModifiedHeader: any = [];
 
+	const host = req.headers.get('host');
+
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
 			requestHeader.push({ [key]: value });
 		}
 	});
 
-	console.log('requestHeadwer', req.nextUrl.href, requestHeader);
-
-	const host = req.headers.get('host');
+	console.log('requestHeader', req.nextUrl.href, requestHeader);
 
 	requestHeader.map((item: any) => {
 		req.headers.set(
@@ -79,7 +79,6 @@ export default async function handler(req: NextRequest) {
 	console.log('responseHeaderModified', responseModifiedHeader);
 
 	if (
-		!!response.headers.get('content-type') &&
 		!['html', 'css', 'javascript'].some((type) =>
 			response.headers.get('content-type')?.includes(type)
 		)
