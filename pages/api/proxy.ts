@@ -72,15 +72,15 @@ export default async function handler(req: NextRequest) {
 			console.log('cookies', item[1]);
 			const cookies = item[1]
 				.replaceAll(process.env.BASE_HOST, process.env.DOMAIN)
-				.split('Domain=.akqa.net.au, ');
+				.split(`Domain=${process.env.DOMAIN}, `);
 			console.log('cookies', cookies);
 			cookies.forEach((cookie: string) => {
 				myHeaders.append(
 					'Set-Cookie',
 					`${
-						cookie.includes('Domain=.akqa.net.au')
+						cookie.includes(`Domain=${process.env.DOMAIN}`)
 							? cookie
-							: cookie + 'Domain=.akqa.net.au;'
+							: cookie + `Domain=${process.env.DOMAIN};`
 					}`
 				);
 			});
