@@ -70,15 +70,10 @@ export default async function handler(req: NextRequest) {
 	responseHeader.forEach((item: any) => {
 		if (item[0] === 'set-cookie') {
 			console.log('cookies', item[1]);
-			const cookies = item[1].split('countryroad.com.au,');
-			myHeaders.append(
-				'Set-Cookie',
-				`${cookies[0]}akqa.net.au`
-			);
-			myHeaders.append(
-				'Set-Cookie',
-				`${cookies[1]}akqa.net.au`
-			);
+			const cookies = item[1].split('Domain=.countryroad.com.au, ');
+			cookies.forEach((cookie: string) => {
+				myHeaders.append('Set-Cookie', cookie.replaceAll('Domain=.countryroad.com.au',''));
+			});
 		} else {
 			myHeaders.set(
 				item[0],
