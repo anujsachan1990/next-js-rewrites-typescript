@@ -26,8 +26,8 @@ export default async function handler(req: NextRequest) {
 		req.headers.set(
 			item[0],
 			item[1]
-				.replaceAll(host, 'www.countryroad.com.au')
-				.replaceAll('.akqa.net.au', '.countryroad.com.au')
+				.replaceAll(host, process.env.BASE_HOST_WWW)
+				.replaceAll(process.env.DOMAIN, process.env.BASE_HOST)
 		);
 	});
 
@@ -71,7 +71,7 @@ export default async function handler(req: NextRequest) {
 		if (item[0] === 'set-cookie') {
 			console.log('cookies', item[1]);
 			const cookies = item[1]
-				.replaceAll('.countryroad.com.au', '.akqa.net.au')
+				.replaceAll(process.env.BASE_HOST, process.env.DOMAIN)
 				.split('Domain=.akqa.net.au, ');
 			console.log('cookies', cookies);
 			cookies.forEach((cookie: string) => {
@@ -88,8 +88,8 @@ export default async function handler(req: NextRequest) {
 			myHeaders.set(
 				item[0],
 				item[1]
-					.replaceAll('www.countryroad.com.au', host)
-					.replaceAll('.countryroad.com.au', '.akqa.net.au')
+					.replaceAll(process.env.BASE_HOST_WWW, host)
+					.replaceAll(process.env.BASE_HOST, process.env.DOMAIN)
 			);
 		}
 	});
