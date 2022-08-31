@@ -68,21 +68,23 @@ export default async function handler(req: NextRequest) {
 
 	const myHeaders = new Headers();
 	responseHeader.forEach((item: any) => {
-		myHeaders.set(
-			item[0],
-			item[1]
-				.replaceAll('www.countryroad.com.au', host)
-				.replaceAll('.countryroad.com.au', '.akqa.net.au')
-		);
 	
 		if (item[0] === 'set-cookie') {
+			const cookies = item[1].split('countryroad.com.au');
 			myHeaders.append(
 				'Set-Cookie',
-				`${item[1].split('.akqa.net.au')[0]}.countryroad.com.au`
+				`${cookies[0]}.akqa.net.au`
 			);
 			myHeaders.append(
 				'Set-Cookie',
-				`${item[1].split('.akqa.net.au')[1]}.countryroad.com.au`
+				`$${cookies[1]}.akqa.net.au`
+			);
+		}else {
+			myHeaders.set(
+				item[0],
+				item[1]
+					.replaceAll('www.countryroad.com.au', host)
+					.replaceAll('.countryroad.com.au', '.akqa.net.au')
 			);
 		}
 	});
