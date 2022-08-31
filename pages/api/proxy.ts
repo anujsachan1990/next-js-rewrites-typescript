@@ -106,9 +106,9 @@ export default async function handler(req: NextRequest) {
 			response.headers.get('content-type')?.includes(type)
 		)
 	) {
-		const text1 = await response.text();
+		//const text1 = await response.text();
 
-		return new Response(text1, { headers: myHeaders });
+		return response
 	}
 
 	const text = await response.text();
