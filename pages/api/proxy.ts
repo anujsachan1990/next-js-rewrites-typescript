@@ -15,18 +15,17 @@ export default async function handler(req: NextRequest) {
 	// extract the request headers
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
-			requestHeader.push({ [key]: value });
+			requestHeader.push([key, value]);
 		}
 	});
 
 	console.log('requestHeader', req.nextUrl.href, requestHeader);
 
-
 	// set request headers
 	requestHeader.map((item: any) => {
 		req.headers.set(
-			Object.keys(item)[0],
-			item[Object.keys(item)[0]]
+			item[0],
+			item[1]
 				.replaceAll(host, 'www.countryroad.com.au')
 				.replaceAll('.vercel.app', '.countryroad.com.au')
 		);
@@ -34,7 +33,7 @@ export default async function handler(req: NextRequest) {
 
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
-			requestModifiedHeader.push({ [key]: value });
+			requestModifiedHeader.push([key, value]);
 		}
 	});
 	const newUrl = `${req.nextUrl.pathname}${req.nextUrl.search}`
@@ -60,7 +59,7 @@ export default async function handler(req: NextRequest) {
 
 	// extract the response headers
 	response.headers.forEach((value, key) => {
-		responseHeader.push({ [key]: value });
+		responseHeader.push([key, value]);
 	});
 
 	console.log('responseHeader', responseHeader);
@@ -70,20 +69,18 @@ export default async function handler(req: NextRequest) {
 	const myHeaders = new Headers();
 	responseHeader.forEach((item: any) => {
 		myHeaders.set(
-			Object.keys(item)[0],
-			item[Object.keys(item)[0]]
+			item[0],
+			item[1]
 				.replaceAll('www.countryroad.com.au', host)
 				.replaceAll('.countryroad.com.au', '.vercel.app')
 		);
 	});
 
 	myHeaders.forEach((value, key) => {
-		responseModifiedHeader.push({ [key]: value });
+		responseModifiedHeader.push([key, value]);
 	});
 
 	console.log('responseHeaderModified', responseModifiedHeader);
-
-
 
 	// return response if content type is not html,css,js
 	if (
@@ -99,13 +96,7 @@ export default async function handler(req: NextRequest) {
 		process.env.REWRITE_HOST as string,
 		req.nextUrl.origin
 	);
-//
-	const testHeader = [
-		[ 'Set-Cookie','visid_incap_2179657=q9QTXcylTKK1qVdQ49e+hmmlDmMAAAAAQUIPAAAAAADArl70DbTH9/2SFJJUaEOg; expires=Wed, 30 Aug 2023 11:57:09 GMT; HttpOnly; path=/; Domain=next-js-rewrites-typescript-anuj.vercel.app'],
-		[ 'Set-Cookie','incap_ses_605_2179657=d56IDrgvPxDDqcdVCmVlCGmlDmMAAAAAnDjmzaeVoRolZRzsVNha7g==; path=/; Domain=next-js-rewrites-typescript-anuj.vercel.app'],
-		['content-type', 'text/html; charset=utf-8'],
-		['content-type', 'text/plain; charset=utf-8'],
-	];
+	//
 
-	return new Response(modifiedtext, { headers: new Headers(testHeader as any)});
+	return new Response(modifiedtext, { headers: myHeaders });
 }
