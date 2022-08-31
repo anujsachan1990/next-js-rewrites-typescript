@@ -80,6 +80,9 @@ export default async function handler(req: NextRequest) {
 		responseModifiedHeader.push([key, value]);
 	});
 
+	response.headers.append('Set-Cookie', 'handleFoo=foo');
+  response.headers.append('Set-Cookie', 'handleBar=bar; HttpOnly=true');
+
 	console.log('responseHeaderModified', responseModifiedHeader);
 
 	// return response if content type is not html,css,js
