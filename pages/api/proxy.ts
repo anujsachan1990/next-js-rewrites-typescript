@@ -73,11 +73,11 @@ export default async function handler(req: NextRequest) {
 			const cookies = item[1].split('countryroad.com.au');
 			myHeaders.append(
 				'Set-Cookie',
-				`${cookies[0]}.akqa.net.au`
+				`${cookies[0]}akqa.net.au`
 			);
 			myHeaders.append(
 				'Set-Cookie',
-				`$${cookies[1]}.akqa.net.au`
+				`$${cookies[1]}akqa.net.au`
 			);
 		}else {
 			myHeaders.set(
