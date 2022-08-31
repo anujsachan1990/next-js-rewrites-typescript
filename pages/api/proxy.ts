@@ -70,14 +70,14 @@ export default async function handler(req: NextRequest) {
 	responseHeader.forEach((item: any) => {
 	
 		if (item[0] === 'set-cookie') {
-			const cookies = item[1].split('countryroad.com.au');
+			const cookies = item[1].split('countryroad.com.au,');
 			myHeaders.append(
 				'Set-Cookie',
 				`${cookies[0]}akqa.net.au`
 			);
 			myHeaders.append(
 				'Set-Cookie',
-				`$${cookies[1]}akqa.net.au`
+				`${cookies[1]}akqa.net.au`
 			);
 		}else {
 			myHeaders.set(
