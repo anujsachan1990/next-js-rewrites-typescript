@@ -69,20 +69,15 @@ export default async function handler(req: NextRequest) {
 	const myHeaders = new Headers();
 	responseHeader.forEach((item: any) => {
 		if (item[0] === 'set-cookie') {
+			console.log('cookies', item[1]);
 			const cookies = item[1].split('countryroad.com.au,');
 			myHeaders.append(
 				'Set-Cookie',
-				`${cookies[0]}akqa.net.au`.replaceAll(
-					'.countryroad.com.au',
-					'.akqa.net.au'
-				)
+				`${cookies[0]}akqa.net.au`
 			);
 			myHeaders.append(
 				'Set-Cookie',
-				`${cookies[1]}akqa.net.au`.replaceAll(
-					'.countryroad.com.au',
-					'.akqa.net.au'
-				)
+				`${cookies[1]}akqa.net.au`
 			);
 		} else {
 			myHeaders.set(
