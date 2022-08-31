@@ -27,7 +27,7 @@ export default async function handler(req: NextRequest) {
 			item[0],
 			item[1]
 				.replaceAll(host, 'www.countryroad.com.au')
-				.replaceAll('next-js-rewrites-typescript-anuj.vercel.app', '.countryroad.com.au')
+				.replaceAll('.akqa.net.au', '.countryroad.com.au')
 		);
 	});
 
@@ -72,7 +72,7 @@ export default async function handler(req: NextRequest) {
 			item[0],
 			item[1]
 				.replaceAll('www.countryroad.com.au', host)
-				.replaceAll('.countryroad.com.au', 'next-js-rewrites-typescript-anuj.vercel.app')
+				.replaceAll('.countryroad.com.au', '.akqa.net.au')
 		);
 	});
 
