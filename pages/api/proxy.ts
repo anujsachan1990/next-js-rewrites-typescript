@@ -72,7 +72,7 @@ export default async function handler(req: NextRequest) {
 			console.log('cookies', item[1]);
 			const cookies = item[1].replaceAll('.countryroad.com.au', '.akqa.net.au').split('Domain=.akqa.net.au,')
 			cookies.forEach((cookie: string) => {
-				myHeaders.append('Set-Cookie', `${cookie.includes('Domain=.akqa.net.au,') ? cookie.replace('Domain=.akqa.net.au,', '') : cookie}; Domain=.akqa.net.au;`);
+				myHeaders.append('Set-Cookie', `${cookie.includes('Domain=.akqa.net.au,') ? cookie : cookie + 'Domain=.akqa.net.au,'}`);
 			});
 		} else {
 			myHeaders.set(
