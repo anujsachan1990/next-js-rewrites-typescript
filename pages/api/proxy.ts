@@ -74,7 +74,7 @@ export default async function handler(req: NextRequest) {
 				.replaceAll('www.countryroad.com.au', host)
 				.replaceAll('.countryroad.com.au', '.akqa.net.au')
 		);
-		console.log("item[0]",item[0]);
+		console.log("item[0, 1]",item[0], item[1]);
 		if(item[0] === 'set-cookie') {
 			myHeaders.append('Set-Cookie', 'handleFoo=foo');
   		myHeaders.append('Set-Cookie', 'handleBar=bar; HttpOnly=true');
