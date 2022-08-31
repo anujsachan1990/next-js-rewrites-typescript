@@ -91,17 +91,17 @@ export default async function handler(req: NextRequest) {
 
 	console.log('responseHeaderModified', responseModifiedHeader);
 
-	// return response if content type is not html,css,js
-	if (
-		!['html', 'css', 'javascript'].some((type) =>
-			response.headers.get('content-type')?.includes(type)
-		)
-	) {
-		const text1 = await response.text();
+	// // return response if content type is not html,css,js
+	// if (
+	// 	!['html', 'css', 'javascript'].some((type) =>
+	// 		response.headers.get('content-type')?.includes(type)
+	// 	)
+	// ) {
+	// 	const text1 = await response.text();
 	
 
-		return new Response(text1, { headers: myHeaders });
-	}
+	// 	return new Response(text1, { headers: myHeaders });
+	// }
 
 	const text = await response.text();
 	const modifiedtext = text.replaceAll(
