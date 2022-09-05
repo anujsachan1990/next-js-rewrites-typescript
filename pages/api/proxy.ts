@@ -13,7 +13,6 @@ export default async function handler(req: NextRequest) {
 	const host = req.headers.get('host');
 
 	// extract the request headers
-	
 
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
@@ -35,7 +34,11 @@ export default async function handler(req: NextRequest) {
 
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
-			requestModifiedHeader.push([key, value]);
+			if (key === 'user-agent') {
+				requestModifiedHeader.push([key, 'CRGAPP-AU-CR']);
+			} else {
+				requestModifiedHeader.push([key, value]);
+			}
 		}
 	});
 	const newUrl = `${req.nextUrl.pathname}${req.nextUrl.search}`
@@ -47,8 +50,7 @@ export default async function handler(req: NextRequest) {
 		.replaceAll('%2D', '%2d')
 		.replaceAll('%2E', '%2e')
 		.replaceAll('%2F', '%2f');
-		
-		requestHeader.push('User-Agent', 'CRGAPP-AU-CR')
+
 	console.log(
 		'requestModifiedHeader',
 		req.nextUrl.href,
@@ -111,7 +113,7 @@ export default async function handler(req: NextRequest) {
 	) {
 		//const text1 = await response.text();
 
-		return response
+		return response;
 	}
 
 	const text = await response.text();
