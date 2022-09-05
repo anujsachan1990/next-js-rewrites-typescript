@@ -13,8 +13,8 @@ export default async function handler(req: NextRequest) {
 	const host = req.headers.get('host');
 
 	// extract the request headers
-	requestHeader.push('User-Agent', 'CRGAPP-AU-CR')
 	
+
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
 			requestHeader.push([key, value]);
@@ -47,7 +47,8 @@ export default async function handler(req: NextRequest) {
 		.replaceAll('%2D', '%2d')
 		.replaceAll('%2E', '%2e')
 		.replaceAll('%2F', '%2f');
-
+		
+		requestHeader.push('User-Agent', 'CRGAPP-AU-CR')
 	console.log(
 		'requestModifiedHeader',
 		req.nextUrl.href,
