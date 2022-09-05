@@ -13,6 +13,8 @@ export default async function handler(req: NextRequest) {
 	const host = req.headers.get('host');
 
 	// extract the request headers
+	requestHeader.push('User-Agent', 'CRGAPP-AU-CR')
+	
 	req.headers.forEach((value, key) => {
 		if (!key.startsWith('x-')) {
 			requestHeader.push([key, value]);
