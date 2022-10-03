@@ -33,23 +33,19 @@ export default async function handler(req: NextRequest) {
 	});
 
 	req.headers.forEach((value, key) => {
-		if (!key.startsWith('x-')) {
-			if (key === 'user-agent') {
-				requestModifiedHeader.push([key, 'CRGAPP-AU-CR']);
-			} else {
-				requestModifiedHeader.push([key, value]);
-			}
-		}
+		requestModifiedHeader.push([key, value]);
+		// if (!key.startsWith('x-')) {
+		// 	if (key === 'user-agent') {
+		// 		requestModifiedHeader.push([
+		// 			key,
+		// 			'Mozilla/5.0 (Linux; Android 10; SM-G996U Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36',
+		// 		]);
+		// 	} else {
+		// 		requestModifiedHeader.push([key, value]);
+		// 	}
+		// }
 	});
-	const newUrl = `${req.nextUrl.pathname}${req.nextUrl.search}`
-		.replaceAll('(', '%28')
-		.replaceAll(')', '%29')
-		.replaceAll('%2A', '%2a')
-		.replaceAll('%2B', '%2b')
-		.replaceAll('%2C', '%2c')
-		.replaceAll('%2D', '%2d')
-		.replaceAll('%2E', '%2e')
-		.replaceAll('%2F', '%2f');
+	const newUrl = `${req.nextUrl.pathname}${req.nextUrl.search}`;
 
 	console.log(
 		'requestModifiedHeader',
